@@ -1,16 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
+  <title><![CDATA[New Code Flow]]></title>
   <link href="http://yoursite.com/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2012-10-03T14:47:44-04:00</updated>
+  <updated>2012-10-03T15:50:16-04:00</updated>
   <id>http://yoursite.com/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[Stephen Chen]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Hello World!]]></title>
+    <link href="http://yoursite.com/blog/2012/10/03/hello-world-slash/"/>
+    <updated>2012-10-03T15:16:00-04:00</updated>
+    <id>http://yoursite.com/blog/2012/10/03/hello-world-slash</id>
+    <content type="html"><![CDATA[<p>Deploying Octopress for the first time turned out to be fairly easy. I took a slightly different approach than the standard installation documentation, I wanted to store the codebase in my Github repository as well as deploy to Heroku. To do this some slight customization is needed:</p>
+
+<ol><li>Edit .git/config and rename the current &#8216;origin&#8217; remote to something else (upstream).</li><li>Add a remote for your github repository <code>git remote add origin git@github.com:stephenchen13/octopress.git</code></li><li>Add a remote for your heroku repository <code>git remote add heroku git@heroku.com:frozen-citadel-3574.git</code></li><li>Regenerate everything necessary, and now you can push to both Github and Heroku</li></ol>
+
+
+<p>Blog away!</p>
+]]></content>
+  </entry>
   
 </feed>
