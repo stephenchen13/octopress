@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>New Code Flow</title>
+  <title>String concatenation the right way; the fast and furious way - New Code Flow</title>
   <meta name="author" content="Stephen Chen">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://yoursite.com/">
+  <link rel="canonical" href="http://yoursite.com/blog/2012/10/09/string-concatenation-the-right-way-the-fastest-way/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -62,15 +62,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/10/09/string-concatenation-the-right-way-the-fastest-way/">String Concatenation the Right Way; the Fast and Furious Way</a></h1>
+      <h1 class="entry-title">String Concatenation the Right Way; the Fast and Furious Way</h1>
     
     
       <p class="meta">
@@ -93,7 +90,7 @@
   </header>
 
 
-  <div class="entry-content"><p>One of the greatest parts of programming is learning something that blows your mind, a moment where <a href="http://youtu.be/ZKh68YfQYkE?t=5s">this</a> happens. It&#8217;s one of those moments that you realize you are a programming n00b, and that there is always a better way to do things. I had one of these moments recently when I was going through the <a href="http://rubykoans.com">Ruby Koans</a>. In one of the introductory tests that cover strings you are told to think about string concatenation, and in particular which method is faster when building strings: &#8220;+=&#8221; or &#8221;<<". 
+<div class="entry-content"><p>One of the greatest parts of programming is learning something that blows your mind, a moment where <a href="http://youtu.be/ZKh68YfQYkE?t=5s">this</a> happens. It&#8217;s one of those moments that you realize you are a programming n00b, and that there is always a better way to do things. I had one of these moments recently when I was going through the <a href="http://rubykoans.com">Ruby Koans</a>. In one of the introductory tests that cover strings you are told to think about string concatenation, and in particular which method is faster when building strings: &#8220;+=&#8221; or &#8221;<<". 
 </p>
 <p>The great part about leading questions like that is that you pretty much already know what the answer is going to be. So I went ahead and proved it, just so I could write this blog post. Awesome. There&#8217;s a really handy Benchmark class in Ruby that lets you time to execution of blocks of code, so I used that to scientifically prove what we all now know is true: &#8221;<<" is faster than "+=".<p>
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -144,22 +141,16 @@ Here are the results:
 <p>As you can see, the &#8221;<<" operator is a whole lot faster. It's faster because "<<" alters the original string, whereas "+=" has to create a new string, and creation is a more costly operation. I could calculate the percentage for you but instead I'm going to end with a quote. "It doesn't matter if you win by an inch or a mile. Winning's winning. Unless you're not using '<<' to build Ruby strings. Then you are losing." -Vin Diesel</p>
 
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/03/hello-world-slash/">Hello World!</a></h1>
-    
-    
-      <p class="meta">
-        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Stephen Chen</span></span>
+
+      
 
 
 
@@ -171,32 +162,32 @@ Here are the results:
   
 
 
-<time datetime="2012-10-03T15:16:00-04:00" pubdate data-updated="true">Oct 3<span>rd</span>, 2012</time>
-        
-      </p>
+<time datetime="2012-10-09T23:15:00-04:00" pubdate data-updated="true">Oct 9<span>th</span>, 2012</time>
+      
+
+
+    </p>
     
-  </header>
-
-
-  <div class="entry-content"><p>Deploying Octopress for the first time turned out to be fairly easy. I took a slightly different approach than the standard installation documentation, I wanted to store the codebase in my Github repository as well as deploy to Heroku. To do this some slight customization is needed:</p>
-
-<ol><li>Edit .git/config and rename the current &#8216;origin&#8217; remote to something else (upstream).</li><li>Add a remote for your github repository <code>git remote add origin git@github.com:stephenchen13/octopress.git</code></li><li>Add a remote for your heroku repository <code>git remote add heroku git@heroku.com:frozen-citadel-3574.git</code></li><li>Regenerate everything necessary, and now you can push to both Github and Heroku</li></ol>
-
-
-<p>Blog away!</p>
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://yoursite.com/blog/2012/10/09/string-concatenation-the-right-way-the-fastest-way/" data-via="" data-counturl="http://yoursite.com/blog/2012/10/09/string-concatenation-the-right-way-the-fastest-way/" >Tweet</a>
+  
+  
+  
 </div>
-  
-  
 
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/10/03/hello-world-slash/" title="Previous Post: Hello World!">&laquo; Hello World!</a>
+      
+      
+    </p>
+  </footer>
+</article>
 
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
 </div>
+
 <aside class="sidebar">
   
     <section>
@@ -217,7 +208,7 @@ Here are the results:
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   
   <a href="https://github.com/stephenchen13">@stephenchen13</a> on GitHub
@@ -250,6 +241,7 @@ Here are the results:
 
   
 </aside>
+
 
     </div>
   </div>
