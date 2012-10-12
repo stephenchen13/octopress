@@ -4,7 +4,7 @@
   <title><![CDATA[New Code Flow]]></title>
   <link href="http://yoursite.com/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2012-10-10T00:21:59-04:00</updated>
+  <updated>2012-10-12T14:36:43-04:00</updated>
   <id>http://yoursite.com/</id>
   <author>
     <name><![CDATA[Stephen Chen]]></name>
@@ -14,13 +14,84 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Conditionals and Null References in Ruby]]></title>
+    <link href="http://yoursite.com/blog/2012/10/12/easy-conditionals-in-ruby/"/>
+    <updated>2012-10-12T13:44:00-04:00</updated>
+    <id>http://yoursite.com/blog/2012/10/12/easy-conditionals-in-ruby</id>
+    <content type="html"><![CDATA[<p>One of the most common errors that haunt all programmers in almost all languages is the Null Reference Exception. Objects get initialized all the time from all kinds of different sources, and a lot of times those objects come back &#8220;null&#8221; or &#8220;nil&#8221; in Ruby. Because of this, programmers spend a lot of time protecting their code from breaking. It&#8217;s a common pattern to check if your object is &#8220;null&#8221; or &#8220;nil&#8221; before calling one of it&#8217;s methods. There&#8217;s a couple ways this can be done in Ruby that read a lot nicer than other languages, and take less plumbing code to accomplish.</p>
+
+<h2>the classic &#8220;if&#8221; statement</h2>
+
+<figure class='code'><figcaption><span>ruby version</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">obj</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">obj</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><figcaption><span>c# version</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">obj</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span> <span class="n">obj</span><span class="p">.</span><span class="n">name</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>the ternary operator</h2>
+
+<figure class='code'><figcaption><span>ruby version</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">a</span> <span class="o">=</span> <span class="n">obj</span> <span class="p">?</span> <span class="n">obj</span><span class="o">.</span><span class="n">name</span> <span class="p">:</span> <span class="s2">&quot;&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><figcaption><span>c# version</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="kt">string</span> <span class="n">a</span> <span class="p">=</span> <span class="n">obj</span> <span class="p">!=</span> <span class="k">null</span> <span class="p">?</span> <span class="n">obj</span><span class="p">.</span><span class="n">name</span> <span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The ternary operator allows you to specify a default statement to execute in case your conditional evaluates to false. In Ruby, this line of code is 7+ characters shorter, which is why lazy programmers love Ruby.</p>
+
+<h2>unless</h2>
+
+<p>&#8220;unless&#8221; almost exactly like an &#8220;if&#8221; statement, but is often used instead of &#8220;if !&#8221; because it is more readable</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">a</span> <span class="o">=</span> <span class="n">obj</span> <span class="k">unless</span> <span class="n">my_array</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+</span><span class='line'><span class="n">a</span> <span class="o">=</span> <span class="n">obj</span> <span class="k">if</span> <span class="o">!</span><span class="n">my_array</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>tl;dr</h2>
+
+<p>Get real familiar with the &#8220;if&#8221;, ternary, and &#8220;unless&#8221; operators and protect yourself from null references. What other ways do you use to protect your code?</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Database Discussion with Chris Henry from Behance]]></title>
+    <link href="http://yoursite.com/blog/2012/10/10/database-discussion-with-chris-henry-from-behance/"/>
+    <updated>2012-10-10T22:06:00-04:00</updated>
+    <id>http://yoursite.com/blog/2012/10/10/database-discussion-with-chris-henry-from-behance</id>
+    <content type="html"><![CDATA[<p>Chris Henry, the CTO of <a href="http://behance.net">Behance</a> came in to the Flatiron School today to give us a primer on databases and MySQL. He showed us a few cool things that I didn&#8217;t know about before, and also gave us some insight on how a real-world application with many users is architected and scaled. There was lots of advanced shit but here are some things I took away:</p>
+
+<h2>Slow Log</h2>
+
+<p>MySQL writes to a &#8220;slow log&#8221; any queries that take longer than a given threshold (Behance uses 1 sec) to execute. This is great tool to use to debug the reason why it takes your page 20 seconds to load and no one is using your site. Use &#8220;EXPLAIN EXTENDED&#8221; to get into the guts of what a query is actually doing.</p>
+
+<h2>Index Everything</h2>
+
+<p>Don&#8217;t index everything, but apparently adding indexes will solve 99% of the problems that you run into.</p>
+
+<h2>Denormalization</h2>
+
+<p>Whenever I read documentation on denormalization, I think to myself: &#8220;Ok, I get the concept, but when will I ever need to do this?&#8221;. Behance does something really interesting. For aggregate data that requires multiple joins or are really inefficient, they denormalize that data and store it with their &#8220;main&#8221; objects. To support that, they have additional database clusters that store the actual data that is being aggregated. If I understood that correctly, it means they store &#8220;Tag&#8221; rows elsewhere (MongoDB?) but denormalize &#8220;Tag&#8221; counts and add them to one of their main models.</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[String concatenation the right way; the fast and furious way]]></title>
     <link href="http://yoursite.com/blog/2012/10/09/string-concatenation-the-right-way-the-fastest-way/"/>
     <updated>2012-10-09T23:15:00-04:00</updated>
     <id>http://yoursite.com/blog/2012/10/09/string-concatenation-the-right-way-the-fastest-way</id>
-    <content type="html"><![CDATA[<p>One of the greatest parts of programming is learning something that blows your mind, a moment where <a href="http://youtu.be/ZKh68YfQYkE?t=5s">this</a> happens. It&#8217;s one of those moments that you realize you are a programming n00b, and that there is always a better way to do things. I had one of these moments recently when I was going through the <a href="http://rubykoans.com">Ruby Koans</a>. In one of the introductory tests that cover strings you are told to think about string concatenation, and in particular which method is faster when building strings: &#8220;+=&#8221; or &#8221;<<". 
+    <content type="html"><![CDATA[<p>One of the greatest parts of programming is learning something that blows your mind, a moment where <a href="http://youtu.be/ZKh68YfQYkE?t=5s">this</a> happens. It&#8217;s one of those moments that you realize you are a programming n00b, and that there is always a better way to do things. I had one of these moments recently when I was going through the <a href="http://rubykoans.com">Ruby Koans</a>. In one of the introductory tests that cover strings you are told to think about string concatenation, and in particular which method is faster when building strings: &#8220;+&#8221; or &#8221;<<". 
 </p>
-<p>The great part about leading questions like that is that you pretty much already know what the answer is going to be. So I went ahead and proved it, just so I could write this blog post. Awesome. There&#8217;s a really handy Benchmark class in Ruby that lets you time to execution of blocks of code, so I used that to scientifically prove what we all now know is true: &#8221;<<" is faster than "+=".<p>
+<p>The great part about leading questions like that is that you pretty much already know what the answer is going to be. So I went ahead and proved it, just so I could write this blog post. Awesome. There&#8217;s a really handy Benchmark class in Ruby that lets you time to execution of blocks of code, so I used that to scientifically prove what we all now know is true: &#8221;<<" is faster than "+".<p>
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -41,32 +112,30 @@
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s2">&quot;benchmark&quot;</span>
 </span><span class='line'>
 </span><span class='line'><span class="no">Benchmark</span><span class="o">.</span><span class="n">bm</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span>
-</span><span class='line'>  <span class="n">first_a</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-</span><span class='line'>  <span class="n">second_a</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-</span><span class='line'>  <span class="n">x</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="s2">&quot;a += b&quot;</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="mi">100000</span><span class="o">.</span><span class="n">times</span> <span class="k">do</span>
-</span><span class='line'>          <span class="n">first_a</span> <span class="o">+=</span> <span class="s2">&quot;b&quot;</span>
-</span><span class='line'>      <span class="k">end</span>
-</span><span class='line'>  <span class="p">}</span>
 </span><span class='line'>  <span class="n">x</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="s2">&quot;a &lt;&lt; b&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">second_a</span> <span class="o">=</span> <span class="s2">&quot;a&quot;</span>
 </span><span class='line'>      <span class="mi">100000</span><span class="o">.</span><span class="n">times</span> <span class="k">do</span>
 </span><span class='line'>          <span class="n">second_a</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;b&quot;</span>
 </span><span class='line'>      <span class="k">end</span>
 </span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="nb">puts</span> <span class="n">first_a</span> <span class="o">==</span> <span class="n">second_a</span>
+</span><span class='line'>  <span class="n">x</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="s2">&quot;a + b&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">first_a</span> <span class="o">=</span> <span class="s2">&quot;a&quot;</span>
+</span><span class='line'>      <span class="mi">100000</span><span class="o">.</span><span class="n">times</span> <span class="k">do</span>
+</span><span class='line'>          <span class="n">first_a</span> <span class="o">+</span> <span class="s2">&quot;b&quot;</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
 </span><span class='line'><span class="k">end</span>
 </span></code></pre></td></tr></table></div></figure>
 Here are the results:
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-<span class='line-number'>4</span>
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'>         <span class="n">user</span>     <span class="nb">system</span>      <span class="n">total</span>        <span class="n">real</span>
-</span><span class='line'><span class="n">a</span><span class="o">+</span><span class="n">b</span>      <span class="mi">0</span><span class="o">.</span><span class="mi">840000</span>   <span class="mi">0</span><span class="o">.</span><span class="mi">150000</span>   <span class="mi">0</span><span class="o">.</span><span class="mi">990000</span> <span class="p">(</span>  <span class="mi">0</span><span class="o">.</span><span class="mi">981010</span><span class="p">)</span>
-</span><span class='line'><span class="n">a</span> <span class="o">&lt;&lt;</span> <span class="n">b</span>   <span class="mi">0</span><span class="o">.</span><span class="mo">030000</span>   <span class="mi">0</span><span class="o">.</span><span class="mo">000000</span>   <span class="mi">0</span><span class="o">.</span><span class="mo">030000</span> <span class="p">(</span>  <span class="mi">0</span><span class="o">.</span><span class="mo">034407</span><span class="p">)</span>
-</span><span class='line'><span class="kp">true</span>
+</span><span class='line'><span class="n">a</span> <span class="o">&lt;&lt;</span> <span class="n">b</span>   <span class="mi">0</span><span class="o">.</span><span class="mo">040000</span>   <span class="mi">0</span><span class="o">.</span><span class="mo">000000</span>   <span class="mi">0</span><span class="o">.</span><span class="mo">040000</span> <span class="p">(</span>  <span class="mi">0</span><span class="o">.</span><span class="mo">036322</span><span class="p">)</span>
+</span><span class='line'><span class="n">a</span> <span class="o">+</span> <span class="n">b</span>    <span class="mi">0</span><span class="o">.</span><span class="mo">040000</span>   <span class="mi">0</span><span class="o">.</span><span class="mo">000000</span>   <span class="mi">0</span><span class="o">.</span><span class="mo">040000</span> <span class="p">(</span>  <span class="mi">0</span><span class="o">.</span><span class="mo">042313</span><span class="p">)</span>
 </span></code></pre></td></tr></table></div></figure>
-<p>As you can see, the &#8221;<<" operator is a whole lot faster. It's faster because "<<" alters the original string, whereas "+=" has to create a new string, and creation is a more costly operation. I could calculate the percentage for you but instead I'm going to end with a quote. "It doesn't matter if you win by an inch or a mile. Winning's winning. Unless you're not using '<<' to build Ruby strings. Then you are losing." -Vin Diesel</p>
+<p>As you can see, the &#8221;<<" operator is a whole lot faster. It's faster because "<<" alters the original string, whereas "+" has to create a new string, and creation is a more costly operation. This is something that seems really small and insignificant, but performance matters. Like Vin Diesel said, "It doesn't matter if you win by an inch or a mile. Winning's winning. Unless you're not using '<<' to build Ruby strings. Then you are losing."</p>
 
 ]]></content>
   </entry>

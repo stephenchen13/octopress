@@ -8,14 +8,24 @@
         <loc>
             http://yoursite.com/blog/2012/10/09/string-concatenation-the-right-way-the-fastest-way/
         </loc>
-        <lastmod>2012-10-10T00:21:52-04:00</lastmod>
+        <lastmod>2012-10-12T14:36:29-04:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://yoursite.com/blog/2012/10/10/database-discussion-with-chris-henry-from-behance/
+        </loc>
+        <lastmod>2012-10-10T22:37:43-04:00</lastmod>
+    </url>
+    <url>
+        <loc>http://yoursite.com/blog/2012/10/12/easy-conditionals-in-ruby/</loc>
+        <lastmod>2012-10-12T14:23:40-04:00</lastmod>
     </url>
     <url>
         <loc>http://yoursite.com/blog/archives/</loc>
-        <lastmod>2012-10-10T00:21:52-04:00</lastmod>
+        <lastmod>2012-10-12T14:36:29-04:00</lastmod>
     </url>
     <url>
         <loc>http://yoursite.com/</loc>
-        <lastmod>2012-10-10T00:21:52-04:00</lastmod>
+        <lastmod>2012-10-12T14:36:29-04:00</lastmod>
     </url>
 </urlset>

@@ -90,9 +90,9 @@
   </header>
 
 
-<div class="entry-content"><p>One of the greatest parts of programming is learning something that blows your mind, a moment where <a href="http://youtu.be/ZKh68YfQYkE?t=5s">this</a> happens. It&#8217;s one of those moments that you realize you are a programming n00b, and that there is always a better way to do things. I had one of these moments recently when I was going through the <a href="http://rubykoans.com">Ruby Koans</a>. In one of the introductory tests that cover strings you are told to think about string concatenation, and in particular which method is faster when building strings: &#8220;+=&#8221; or &#8221;<<". 
+<div class="entry-content"><p>One of the greatest parts of programming is learning something that blows your mind, a moment where <a href="http://youtu.be/ZKh68YfQYkE?t=5s">this</a> happens. It&#8217;s one of those moments that you realize you are a programming n00b, and that there is always a better way to do things. I had one of these moments recently when I was going through the <a href="http://rubykoans.com">Ruby Koans</a>. In one of the introductory tests that cover strings you are told to think about string concatenation, and in particular which method is faster when building strings: &#8220;+&#8221; or &#8221;<<". 
 </p>
-<p>The great part about leading questions like that is that you pretty much already know what the answer is going to be. So I went ahead and proved it, just so I could write this blog post. Awesome. There&#8217;s a really handy Benchmark class in Ruby that lets you time to execution of blocks of code, so I used that to scientifically prove what we all now know is true: &#8221;<<" is faster than "+=".<p>
+<p>The great part about leading questions like that is that you pretty much already know what the answer is going to be. So I went ahead and proved it, just so I could write this blog post. Awesome. There&#8217;s a really handy Benchmark class in Ruby that lets you time to execution of blocks of code, so I used that to scientifically prove what we all now know is true: &#8221;<<" is faster than "+".<p>
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -113,32 +113,30 @@
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s2">&quot;benchmark&quot;</span>
 </span><span class='line'>
 </span><span class='line'><span class="no">Benchmark</span><span class="o">.</span><span class="n">bm</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span>
-</span><span class='line'>  <span class="n">first_a</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-</span><span class='line'>  <span class="n">second_a</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-</span><span class='line'>  <span class="n">x</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="s2">&quot;a += b&quot;</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="mi">100000</span><span class="o">.</span><span class="n">times</span> <span class="k">do</span>
-</span><span class='line'>          <span class="n">first_a</span> <span class="o">+=</span> <span class="s2">&quot;b&quot;</span>
-</span><span class='line'>      <span class="k">end</span>
-</span><span class='line'>  <span class="p">}</span>
 </span><span class='line'>  <span class="n">x</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="s2">&quot;a &lt;&lt; b&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">second_a</span> <span class="o">=</span> <span class="s2">&quot;a&quot;</span>
 </span><span class='line'>      <span class="mi">100000</span><span class="o">.</span><span class="n">times</span> <span class="k">do</span>
 </span><span class='line'>          <span class="n">second_a</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;b&quot;</span>
 </span><span class='line'>      <span class="k">end</span>
 </span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>  <span class="nb">puts</span> <span class="n">first_a</span> <span class="o">==</span> <span class="n">second_a</span>
+</span><span class='line'>  <span class="n">x</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="s2">&quot;a + b&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="n">first_a</span> <span class="o">=</span> <span class="s2">&quot;a&quot;</span>
+</span><span class='line'>      <span class="mi">100000</span><span class="o">.</span><span class="n">times</span> <span class="k">do</span>
+</span><span class='line'>          <span class="n">first_a</span> <span class="o">+</span> <span class="s2">&quot;b&quot;</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
 </span><span class='line'><span class="k">end</span>
 </span></code></pre></td></tr></table></div></figure>
 Here are the results:
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-<span class='line-number'>4</span>
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'>         <span class="n">user</span>     <span class="nb">system</span>      <span class="n">total</span>        <span class="n">real</span>
-</span><span class='line'><span class="n">a</span><span class="o">+</span><span class="n">b</span>      <span class="mi">0</span><span class="o">.</span><span class="mi">840000</span>   <span class="mi">0</span><span class="o">.</span><span class="mi">150000</span>   <span class="mi">0</span><span class="o">.</span><span class="mi">990000</span> <span class="p">(</span>  <span class="mi">0</span><span class="o">.</span><span class="mi">981010</span><span class="p">)</span>
-</span><span class='line'><span class="n">a</span> <span class="o">&lt;&lt;</span> <span class="n">b</span>   <span class="mi">0</span><span class="o">.</span><span class="mo">030000</span>   <span class="mi">0</span><span class="o">.</span><span class="mo">000000</span>   <span class="mi">0</span><span class="o">.</span><span class="mo">030000</span> <span class="p">(</span>  <span class="mi">0</span><span class="o">.</span><span class="mo">034407</span><span class="p">)</span>
-</span><span class='line'><span class="kp">true</span>
+</span><span class='line'><span class="n">a</span> <span class="o">&lt;&lt;</span> <span class="n">b</span>   <span class="mi">0</span><span class="o">.</span><span class="mo">040000</span>   <span class="mi">0</span><span class="o">.</span><span class="mo">000000</span>   <span class="mi">0</span><span class="o">.</span><span class="mo">040000</span> <span class="p">(</span>  <span class="mi">0</span><span class="o">.</span><span class="mo">036322</span><span class="p">)</span>
+</span><span class='line'><span class="n">a</span> <span class="o">+</span> <span class="n">b</span>    <span class="mi">0</span><span class="o">.</span><span class="mo">040000</span>   <span class="mi">0</span><span class="o">.</span><span class="mo">000000</span>   <span class="mi">0</span><span class="o">.</span><span class="mo">040000</span> <span class="p">(</span>  <span class="mi">0</span><span class="o">.</span><span class="mo">042313</span><span class="p">)</span>
 </span></code></pre></td></tr></table></div></figure>
-<p>As you can see, the &#8221;<<" operator is a whole lot faster. It's faster because "<<" alters the original string, whereas "+=" has to create a new string, and creation is a more costly operation. I could calculate the percentage for you but instead I'm going to end with a quote. "It doesn't matter if you win by an inch or a mile. Winning's winning. Unless you're not using '<<' to build Ruby strings. Then you are losing." -Vin Diesel</p>
+<p>As you can see, the &#8221;<<" operator is a whole lot faster. It's faster because "<<" alters the original string, whereas "+" has to create a new string, and creation is a more costly operation. This is something that seems really small and insignificant, but performance matters. Like Vin Diesel said, "It doesn't matter if you win by an inch or a mile. Winning's winning. Unless you're not using '<<' to build Ruby strings. Then you are losing."</p>
 
 </div>
 
@@ -182,6 +180,8 @@ Here are the results:
         <a class="basic-alignment left" href="/blog/2012/10/03/hello-world-slash/" title="Previous Post: Hello World!">&laquo; Hello World!</a>
       
       
+        <a class="basic-alignment right" href="/blog/2012/10/10/database-discussion-with-chris-henry-from-behance/" title="Next Post: Database Discussion with Chris Henry from Behance">Database Discussion with Chris Henry from Behance &raquo;</a>
+      
     </p>
   </footer>
 </article>
@@ -193,6 +193,14 @@ Here are the results:
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/10/12/easy-conditionals-in-ruby/">Conditionals and Null References in Ruby</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/10/database-discussion-with-chris-henry-from-behance/">Database Discussion with Chris Henry from Behance</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2012/10/09/string-concatenation-the-right-way-the-fastest-way/">String concatenation the right way; the fast and furious way</a>
