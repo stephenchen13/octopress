@@ -24,6 +24,13 @@ Benchmark.bm(6) do |x|
 			first_a + "b"
 		end
 	}
+	x.report("\#{ab}") {
+		third_a = "a"
+		third_b = "b"
+		100000.times do
+			"#{third_a}#{third_b}"
+		end
+	}
 
 end
 
@@ -31,7 +38,8 @@ end
 Here are the results:
 ```
              user     system      total        real
-a << b   0.040000   0.000000   0.040000 (  0.036322)
-a + b    0.040000   0.000000   0.040000 (  0.042313)
+a << b   0.040000   0.000000   0.040000 (  0.036503)
+a + b    0.040000   0.000000   0.040000 (  0.042027)
+#{ab}    0.040000   0.000000   0.040000 (  0.040516)
 ```
 <p>As you can see, the "<<" operator is a whole lot faster. It's faster because "<<" alters the original string, whereas "+" has to create a new string, and creation is a more costly operation. This is something that seems really small and insignificant, but performance matters. Like Vin Diesel said, "It doesn't matter if you win by an inch or a mile. Winning's winning. Unless you're not using '<<' to build Ruby strings. Then you are losing."</p>
