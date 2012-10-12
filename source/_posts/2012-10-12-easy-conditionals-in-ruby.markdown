@@ -4,6 +4,7 @@ title: "Conditionals and Null References in Ruby"
 date: 2012-10-12 13:44
 comments: true
 categories: 
+published: false
 ---
 One of the most common errors that haunt all programmers in almost all languages is the Null Reference Exception. Objects get initialized all the time from all kinds of different sources, and a lot of times those objects come back "null" or "nil" in Ruby. Because of this, programmers spend a lot of time protecting their code from breaking. It's a common pattern to check if your object is "null" or "nil" before calling one of it's methods. There's a couple ways this can be done in Ruby that read a lot nicer than other languages, and take less plumbing code to accomplish.
 
