@@ -1,0 +1,306 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Common Antipatterns in Ruby - New Code Flow</title>
+  <meta name="author" content="Stephen Chen">
+
+  
+  <meta name="description" content="What is an antipattern? An antipattern is generally a common solution to a problem that is ineffective, or has negative consequences. It can result &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://yoursite.com/blog/2012/10/16/common-antipatterns-in-ruby-and-rails/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="New Code Flow" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">New Code Flow</a></h1>
+  
+    <h2>A blogging framework for hackers.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:yoursite.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Common Antipatterns in Ruby</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-16T17:12:00-04:00" pubdate data-updated="true">Oct 16<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>What is an antipattern?</h2>
+
+<p>An antipattern is generally a common solution to a problem that is ineffective, or has negative consequences. It can result from not knowing how to solve a particular problem, not caring how it&#8217;s solved, or using a correct pattern in a wrong context. Tom Crinson has a great presentation on antipatterns on speakerdeck that can be found <a href="https://speakerdeck.com/u/mrjaba/p/ruby-rails-antipatterns">here</a>. Here are a few examples of antipatterns that I found interesting:</p>
+
+<h2>If True Else False</h2>
+
+<p>If the block of code that is executed as a result of your conditional is simply a boolean value, forget about writing out the entire if/else statement. Just return the evaluated result of the conditional. So instead of this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">horrible_if_else</span>
+</span><span class='line'>  <span class="k">if</span> <span class="vi">@jason_kidd</span><span class="o">.</span><span class="n">is_old?</span> <span class="o">&amp;&amp;</span> <span class="vi">@jason_kidd</span><span class="o">.</span><span class="n">is_drunk?</span>
+</span><span class='line'>      <span class="k">return</span> <span class="kp">true</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>      <span class="k">return</span> <span class="kp">false</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can do this instead:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">better_if_else</span>
+</span><span class='line'>  <span class="vi">@jason_kidd</span><span class="o">.</span><span class="n">is_old?</span> <span class="o">&amp;&amp;</span> <span class="vi">@jason_kidd</span><span class="o">.</span><span class="n">is_drunk?</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Violating Demeter: Aka Train Wreck Code</h2>
+
+<p>These rules make up Demeter&#8217;s Law:
++You can play on your own.
++You can play with your own toys (but you can&#8217;t take them apart)
++You can play with toys that were given to you.
++You can play with toys you&#8217;ve made yourself.</p>
+
+<p>Other than sounding kind of creepy, the main side effect of this law is that you shouldn&#8217;t chain call methods that belong to a different class than you&#8217;re original object.</p>
+
+<p>The following code violates this principle:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="n">knicks</span><span class="o">.</span><span class="n">players</span><span class="o">.</span><span class="n">first</span><span class="o">.</span><span class="n">age</span><span class="o">.</span><span class="n">older_than?</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
+</span><span class='line'>  <span class="s2">&quot;wow they are old&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Instead, you should refactor the code so it looks more like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">if</span> <span class="n">knicks</span><span class="o">.</span><span class="n">ages_older_than?</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
+</span><span class='line'>  <span class="s2">&quot;wow they are old&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>One of the first things I learned about Ruby is that it is an opinionated language. Therefore there are tons of antipatterns that exist in Ruby because there is a right way to do things, and there is a wrong way to do things. Leave a comment if you&#8217;ve run into any interesting antipatterns while coding.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Stephen Chen</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-16T17:12:00-04:00" pubdate data-updated="true">Oct 16<span>th</span>, 2012</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://yoursite.com/blog/2012/10/16/common-antipatterns-in-ruby-and-rails/" data-via="" data-counturl="http://yoursite.com/blog/2012/10/16/common-antipatterns-in-ruby-and-rails/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/10/12/easy-conditionals-in-ruby/" title="Previous Post: Conditionals and Null References in Ruby">&laquo; Conditionals and Null References in Ruby</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/10/16/common-antipatterns-in-ruby-and-rails/">Common Antipatterns in Ruby</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/12/easy-conditionals-in-ruby/">Conditionals and Null References in Ruby</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/10/database-discussion-with-chris-henry-from-behance/">Database Discussion with Chris Henry from Behance</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/09/string-concatenation-the-right-way-the-fastest-way/">String concatenation the right way; the fast and furious way</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/03/hello-world-slash/">Hello World!</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/stephenchen13">@stephenchen13</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'stephenchen13',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Stephen Chen -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
