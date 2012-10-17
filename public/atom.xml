@@ -4,7 +4,7 @@
   <title><![CDATA[New Code Flow]]></title>
   <link href="http://yoursite.com/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2012-10-17T11:13:37-04:00</updated>
+  <updated>2012-10-17T11:29:48-04:00</updated>
   <id>http://yoursite.com/</id>
   <author>
     <name><![CDATA[Stephen Chen]]></name>
@@ -85,56 +85,6 @@
 
 
 <p>One of the first things I learned about Ruby is that it is an opinionated language. Therefore there are tons of antipatterns that exist in Ruby because there is a right way to do things, and there is a wrong way to do things. Leave a comment if you&#8217;ve run into any interesting antipatterns while coding.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Conditionals and Null References in Ruby]]></title>
-    <link href="http://yoursite.com/blog/2012/10/12/easy-conditionals-in-ruby/"/>
-    <updated>2012-10-12T13:44:00-04:00</updated>
-    <id>http://yoursite.com/blog/2012/10/12/easy-conditionals-in-ruby</id>
-    <content type="html"><![CDATA[<p>One of the most common errors that haunt all programmers in almost all languages is the Null Reference Exception. Objects get initialized all the time from all kinds of different sources, and a lot of times those objects come back &#8220;null&#8221; or &#8220;nil&#8221; in Ruby. Because of this, programmers spend a lot of time protecting their code from breaking. It&#8217;s a common pattern to check if your object is &#8220;null&#8221; or &#8220;nil&#8221; before calling one of it&#8217;s methods. There&#8217;s a couple ways this can be done in Ruby that read a lot nicer than other languages, and take less plumbing code to accomplish.</p>
-
-<h2>the classic &#8220;if&#8221; statement</h2>
-
-<figure class='code'><figcaption><span>ruby version</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">obj</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">obj</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<figure class='code'><figcaption><span>c# version</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">obj</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span> <span class="n">obj</span><span class="p">.</span><span class="n">name</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>the ternary operator</h2>
-
-<figure class='code'><figcaption><span>ruby version</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">a</span> <span class="o">=</span> <span class="n">obj</span> <span class="p">?</span> <span class="n">obj</span><span class="o">.</span><span class="n">name</span> <span class="p">:</span> <span class="s2">&quot;&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<figure class='code'><figcaption><span>c# version</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="kt">string</span> <span class="n">a</span> <span class="p">=</span> <span class="n">obj</span> <span class="p">!=</span> <span class="k">null</span> <span class="p">?</span> <span class="n">obj</span><span class="p">.</span><span class="n">name</span> <span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The ternary operator allows you to specify a default statement to execute in case your conditional evaluates to false. In Ruby, this line of code is 7+ characters shorter, which is why lazy programmers love Ruby.</p>
-
-<h2>unless</h2>
-
-<p>&#8220;unless&#8221; almost exactly like an &#8220;if&#8221; statement, but is often used instead of &#8220;if !&#8221; because it is more readable</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">a</span> <span class="o">=</span> <span class="n">obj</span> <span class="k">unless</span> <span class="n">my_array</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-</span><span class='line'><span class="n">a</span> <span class="o">=</span> <span class="n">obj</span> <span class="k">if</span> <span class="o">!</span><span class="n">my_array</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>tl;dr</h2>
-
-<p>Get real familiar with the &#8220;if&#8221;, ternary, and &#8220;unless&#8221; operators and protect yourself from null references. What other ways do you use to protect your code?</p>
 ]]></content>
   </entry>
   
