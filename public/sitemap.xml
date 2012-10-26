@@ -24,14 +24,14 @@
         <loc>
             http://yoursite.com/blog/2012/10/25/easy-datetime-comparison-with-activerecord-and-rails/
         </loc>
-        <lastmod>2012-10-26T10:06:37-04:00</lastmod>
+        <lastmod>2012-10-26T10:12:14-04:00</lastmod>
     </url>
     <url>
         <loc>http://yoursite.com/blog/archives/</loc>
-        <lastmod>2012-10-26T10:06:37-04:00</lastmod>
+        <lastmod>2012-10-26T10:12:14-04:00</lastmod>
     </url>
     <url>
         <loc>http://yoursite.com/</loc>
-        <lastmod>2012-10-26T10:06:37-04:00</lastmod>
+        <lastmod>2012-10-26T10:12:14-04:00</lastmod>
     </url>
 </urlset>

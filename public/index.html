@@ -9,7 +9,8 @@
   <meta name="author" content="Stephen Chen">
 
   
-  <meta name="description" content="Using ActiveRecord is great because of all the built in functionality, but combine ActiveRecord with all the headaches that come with dates and &hellip;">
+  <meta name="description" content="TL;DR:
+Instead of creating or hardcoding your own DateTime and Date objects, use built in ActiveSupport methods in your ActiveRecord queries. Using &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -93,7 +94,10 @@
   </header>
 
 
-  <div class="entry-content"><p>Using ActiveRecord is great because of all the built in functionality, but combine ActiveRecord with all the headaches that come with dates and datetime and it can get pretty intimidating. In most web applications that you build you&#8217;ll probably find yourself needing to filter a set of ActiveRecord objects by date, whether it is a date_created field or something else. These are a few things that made this extremely easy for me to understand. I&#8217;m not going to cover formatting datetime display because that is another post for another day.</p>
+  <div class="entry-content"><p>TL;DR:
+Instead of creating or hardcoding your own DateTime and Date objects, use built in ActiveSupport methods in your ActiveRecord queries.</p>
+
+<p>Using ActiveRecord is great because of all the built in functionality, but combine ActiveRecord with all the headaches that come with dates and datetime and it can get pretty intimidating. In most web applications that you build you&#8217;ll probably find yourself needing to filter a set of ActiveRecord objects by date, whether it is a date_created field or something else. These are a few things that made this extremely easy for me to understand. I&#8217;m not going to cover formatting datetime display because that is another post for another day.</p>
 
 <h2>Check the table</h2>
 
@@ -149,8 +153,7 @@ link to Akiva -->
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>TLDR:
-Instead of creating or hardcoding your own DateTime and Date objects, use built in ActiveSupport methods in your ActiveRecord queries.</p>
+
 </div>
   
   

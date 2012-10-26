@@ -5,6 +5,8 @@ date: 2012-10-25 21:26
 comments: true
 categories: 
 ---
+TL;DR:
+Instead of creating or hardcoding your own DateTime and Date objects, use built in ActiveSupport methods in your ActiveRecord queries.
 
 Using ActiveRecord is great because of all the built in functionality, but combine ActiveRecord with all the headaches that come with dates and datetime and it can get pretty intimidating. In most web applications that you build you'll probably find yourself needing to filter a set of ActiveRecord objects by date, whether it is a date_created field or something else. These are a few things that made this extremely easy for me to understand. I'm not going to cover formatting datetime display because that is another post for another day. 
 
@@ -43,5 +45,3 @@ With ActiveSupport you can easily query your database with ActiveRecord like thi
   end 
 ```
   
-TLDR:
-Instead of creating or hardcoding your own DateTime and Date objects, use built in ActiveSupport methods in your ActiveRecord queries.
