@@ -31,7 +31,7 @@ With ActiveSupport you can easily query your database with ActiveRecord like thi
 
 ``` ruby
   def self.recent_images
-    Image.where("created_at > ?", 7.day.ago)
+    Image.where("created_at > ?", 7.days.ago)
   end
 
   def self.this_months_images
