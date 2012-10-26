@@ -1,0 +1,297 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Easy datetime comparison with ActiveRecord and Rails - New Code Flow</title>
+  <meta name="author" content="Stephen Chen">
+
+  
+  <meta name="description" content="Using ActiveRecord is great because of all the built in functionality, but combine ActiveRecord with all the headaches that come with dates and &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://yoursite.com/blog/2012/10/25/easy-datetime-comparison-with-activerecord-and-rails/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="New Code Flow" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">New Code Flow</a></h1>
+  
+    <h2>Stephen Chen's Coding Blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:yoursite.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Easy Datetime Comparison With ActiveRecord and Rails</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-25T21:26:00-04:00" pubdate data-updated="true">Oct 25<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Using ActiveRecord is great because of all the built in functionality, but combine ActiveRecord with all the headaches that come with dates and datetime and it can get pretty intimidating. In most web applications that you build you&#8217;ll probably find yourself needing to filter a set of ActiveRecord objects by date, whether it is a date_created field or something else. These are a few things that made this extremely easy for me to understand. I&#8217;m not going to cover formatting datetime display because that is another post for another day.</p>
+
+<h2>Check the table</h2>
+
+<p>First of all, you want to inspect your database table schema and determine what type of field you are comparing against. Your ActiveRecord model can have either &#8216;date&#8217; or &#8216;datetime&#8217; data types so you&#8217;ll want to make sure you use the corresponding &#8216;Date&#8217; or &#8216;DateTime&#8217; Ruby classes. You can actually compare &#8216;Date&#8217; and &#8216;DateTime&#8217; objects against one another:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">DateTime</span><span class="o">.</span><span class="n">now</span> <span class="o">&gt;</span> <span class="no">Date</span><span class="o">.</span><span class="n">today</span>
+</span><span class='line'><span class="o">=&gt;</span> <span class="kp">true</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>However if you don&#8217;t realize that you are comparing two different types of data you may get unexpected results in your application.</p>
+
+<h2>Use built in ActiveSupport methods</h2>
+
+<p>&#8220;Active Support is a collection of various utility classes and standard library extensions that were found useful for Rails. All these additions have hence been collected in this bundle as way to gather all that sugar that makes Ruby sweeter.&#8221; -http://as.rubyonrails.org/</p>
+
+<!-- For more on syntactic sugar check out this great blog post
+link to Akiva -->
+
+
+<p>This is the documentation for the ActiveSupport DateTime methods:
+<a href="http://as.rubyonrails.org/classes/ActiveSupport/CoreExtensions/DateTime/Calculations.html">http://as.rubyonrails.org/classes/ActiveSupport/CoreExtensions/DateTime/Calculations.html</a></p>
+
+<p>And this is the documentation for the ActiveSupport Date methods:
+<a href="http://as.rubyonrails.org/classes/ActiveSupport/CoreExtensions/Numeric/Time.html">http://as.rubyonrails.org/classes/ActiveSupport/CoreExtensions/Numeric/Time.html</a></p>
+
+<p>With ActiveSupport you can easily query your database with ActiveRecord like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">recent_images</span>
+</span><span class='line'>    <span class="no">Image</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s2">&quot;created_at &gt; ?&quot;</span><span class="p">,</span> <span class="mi">7</span><span class="o">.</span><span class="n">day</span><span class="o">.</span><span class="n">ago</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">this_months_images</span>
+</span><span class='line'>    <span class="no">Image</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s2">&quot;created_at &gt; ?&quot;</span><span class="p">,</span> <span class="no">DateTime</span><span class="o">.</span><span class="n">now</span><span class="o">.</span><span class="n">beginning_of_month</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">expired?</span>
+</span><span class='line'>    <span class="n">expiration_date</span> <span class="o">&gt;</span> <span class="n">created_at</span><span class="o">.</span><span class="n">advance</span><span class="p">(</span><span class="ss">:months</span> <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">,</span> <span class="ss">:days</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>TLDR:
+Instead of creating or hardcoding your own DateTime and Date objects, use built in ActiveSupport methods in your ActiveRecord queries.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Stephen Chen</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-25T21:26:00-04:00" pubdate data-updated="true">Oct 25<span>th</span>, 2012</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://yoursite.com/blog/2012/10/25/easy-datetime-comparison-with-activerecord-and-rails/" data-via="" data-counturl="http://yoursite.com/blog/2012/10/25/easy-datetime-comparison-with-activerecord-and-rails/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/10/16/common-antipatterns-in-ruby-and-rails/" title="Previous Post: Common Antipatterns in Ruby">&laquo; Common Antipatterns in Ruby</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/10/25/easy-datetime-comparison-with-activerecord-and-rails/">Easy datetime comparison with ActiveRecord and Rails</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/16/common-antipatterns-in-ruby-and-rails/">Common Antipatterns in Ruby</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/12/easy-conditionals-in-ruby/">Conditionals and Null References in Ruby</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/10/database-discussion-with-chris-henry-from-behance/">Database Discussion with Chris Henry from Behance</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/09/string-concatenation-the-right-way-the-fastest-way/">String concatenation the right way; the fast and furious way</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/stephenchen13">@stephenchen13</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'stephenchen13',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Stephen Chen -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -4,7 +4,7 @@
   <title><![CDATA[New Code Flow]]></title>
   <link href="http://yoursite.com/atom.xml" rel="self"/>
   <link href="http://yoursite.com/"/>
-  <updated>2012-10-17T11:29:48-04:00</updated>
+  <updated>2012-10-26T09:53:23-04:00</updated>
   <id>http://yoursite.com/</id>
   <author>
     <name><![CDATA[Stephen Chen]]></name>
@@ -12,6 +12,72 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Easy datetime comparison with ActiveRecord and Rails]]></title>
+    <link href="http://yoursite.com/blog/2012/10/25/easy-datetime-comparison-with-activerecord-and-rails/"/>
+    <updated>2012-10-25T21:26:00-04:00</updated>
+    <id>http://yoursite.com/blog/2012/10/25/easy-datetime-comparison-with-activerecord-and-rails</id>
+    <content type="html"><![CDATA[<p>Using ActiveRecord is great because of all the built in functionality, but combine ActiveRecord with all the headaches that come with dates and datetime and it can get pretty intimidating. In most web applications that you build you&#8217;ll probably find yourself needing to filter a set of ActiveRecord objects by date, whether it is a date_created field or something else. These are a few things that made this extremely easy for me to understand. I&#8217;m not going to cover formatting datetime display because that is another post for another day.</p>
+
+<h2>Check the table</h2>
+
+<p>First of all, you want to inspect your database table schema and determine what type of field you are comparing against. Your ActiveRecord model can have either &#8216;date&#8217; or &#8216;datetime&#8217; data types so you&#8217;ll want to make sure you use the corresponding &#8216;Date&#8217; or &#8216;DateTime&#8217; Ruby classes. You can actually compare &#8216;Date&#8217; and &#8216;DateTime&#8217; objects against one another:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">DateTime</span><span class="o">.</span><span class="n">now</span> <span class="o">&gt;</span> <span class="no">Date</span><span class="o">.</span><span class="n">today</span>
+</span><span class='line'><span class="o">=&gt;</span> <span class="kp">true</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>However if you don&#8217;t realize that you are comparing two different types of data you may get unexpected results in your application.</p>
+
+<h2>Use built in ActiveSupport methods</h2>
+
+<p>&#8220;Active Support is a collection of various utility classes and standard library extensions that were found useful for Rails. All these additions have hence been collected in this bundle as way to gather all that sugar that makes Ruby sweeter.&#8221; -http://as.rubyonrails.org/</p>
+
+<!-- For more on syntactic sugar check out this great blog post
+link to Akiva -->
+
+
+<p>This is the documentation for the ActiveSupport DateTime methods:
+<a href="http://as.rubyonrails.org/classes/ActiveSupport/CoreExtensions/DateTime/Calculations.html">http://as.rubyonrails.org/classes/ActiveSupport/CoreExtensions/DateTime/Calculations.html</a></p>
+
+<p>And this is the documentation for the ActiveSupport Date methods:
+<a href="http://as.rubyonrails.org/classes/ActiveSupport/CoreExtensions/Numeric/Time.html">http://as.rubyonrails.org/classes/ActiveSupport/CoreExtensions/Numeric/Time.html</a></p>
+
+<p>With ActiveSupport you can easily query your database with ActiveRecord like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">recent_images</span>
+</span><span class='line'>    <span class="no">Image</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s2">&quot;created_at &gt; ?&quot;</span><span class="p">,</span> <span class="mi">7</span><span class="o">.</span><span class="n">day</span><span class="o">.</span><span class="n">ago</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">this_months_images</span>
+</span><span class='line'>    <span class="no">Image</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s2">&quot;created_at &gt; ?&quot;</span><span class="p">,</span> <span class="no">DateTime</span><span class="o">.</span><span class="n">now</span><span class="o">.</span><span class="n">beginning_of_month</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">expired?</span>
+</span><span class='line'>    <span class="n">expiration_date</span> <span class="o">&gt;</span> <span class="n">created_at</span><span class="o">.</span><span class="n">advance</span><span class="p">(</span><span class="ss">:months</span> <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">,</span> <span class="ss">:days</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>TLDR:
+Instead of creating or hardcoding your own DateTime and Date objects, use built in ActiveSupport methods in your ActiveRecord queries.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Common Antipatterns in Ruby]]></title>
@@ -85,6 +151,56 @@
 
 
 <p>One of the first things I learned about Ruby is that it is an opinionated language. Therefore there are tons of antipatterns that exist in Ruby because there is a right way to do things, and there is a wrong way to do things. Leave a comment if you&#8217;ve run into any interesting antipatterns while coding.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Conditionals and Null References in Ruby]]></title>
+    <link href="http://yoursite.com/blog/2012/10/12/easy-conditionals-in-ruby/"/>
+    <updated>2012-10-12T13:44:00-04:00</updated>
+    <id>http://yoursite.com/blog/2012/10/12/easy-conditionals-in-ruby</id>
+    <content type="html"><![CDATA[<p>One of the most common errors that haunt all programmers in almost all languages is the Null Reference Exception. Objects get initialized all the time from all kinds of different sources, and a lot of times those objects come back &#8220;null&#8221; or &#8220;nil&#8221; in Ruby. Because of this, programmers spend a lot of time protecting their code from breaking. It&#8217;s a common pattern to check if your object is &#8220;null&#8221; or &#8220;nil&#8221; before calling one of it&#8217;s methods. There&#8217;s a couple ways this can be done in Ruby that read a lot nicer than other languages, and take less plumbing code to accomplish.</p>
+
+<h2>the classic &#8220;if&#8221; statement</h2>
+
+<figure class='code'><figcaption><span>ruby version</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">obj</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">obj</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><figcaption><span>c# version</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">obj</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span> <span class="n">obj</span><span class="p">.</span><span class="n">name</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>the ternary operator</h2>
+
+<figure class='code'><figcaption><span>ruby version</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">a</span> <span class="o">=</span> <span class="n">obj</span> <span class="p">?</span> <span class="n">obj</span><span class="o">.</span><span class="n">name</span> <span class="p">:</span> <span class="s2">&quot;&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><figcaption><span>c# version</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="kt">string</span> <span class="n">a</span> <span class="p">=</span> <span class="n">obj</span> <span class="p">!=</span> <span class="k">null</span> <span class="p">?</span> <span class="n">obj</span><span class="p">.</span><span class="n">name</span> <span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The ternary operator allows you to specify a default statement to execute in case your conditional evaluates to false. In Ruby, this line of code is 7+ characters shorter, which is why lazy programmers love Ruby.</p>
+
+<h2>unless</h2>
+
+<p>&#8220;unless&#8221; almost exactly like an &#8220;if&#8221; statement, but is often used instead of &#8220;if !&#8221; because it is more readable</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">a</span> <span class="o">=</span> <span class="n">obj</span> <span class="k">unless</span> <span class="n">my_array</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+</span><span class='line'><span class="n">a</span> <span class="o">=</span> <span class="n">obj</span> <span class="k">if</span> <span class="o">!</span><span class="n">my_array</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>tl;dr</h2>
+
+<p>Get real familiar with the &#8220;if&#8221;, ternary, and &#8220;unless&#8221; operators and protect yourself from null references. What other ways do you use to protect your code?</p>
 ]]></content>
   </entry>
   
