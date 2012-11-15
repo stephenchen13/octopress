@@ -1,0 +1,285 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>How To Query NYC Open Datasets with Socrata - New Code Flow</title>
+  <meta name="author" content="Stephen Chen">
+
+  
+  <meta name="description" content="NYC provides a ton of data from a variety of sources to the public to use for research and for application development. There&#8217;s information &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://yoursite.com/blog/2012/11/14/how-to-query-nyc-open-datasets-with-socrata/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="New Code Flow" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">New Code Flow</a></h1>
+  
+    <h2>Stephen Chen's Coding Blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:yoursite.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">How to Query NYC Open Datasets With Socrata</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-14T21:19:00-05:00" pubdate data-updated="true">Nov 14<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>NYC provides a ton of data from a variety of sources to the public to use for research and for application development. There&#8217;s information ranging from Wifi Hotspot Locations to 311 Service requests. You can check out all the datasets here: <a href="https://nycopendata.socrata.com/">https://nycopendata.socrata.com/</a>. As a developer, working with these datasets can be tricky, as the documentation can be unclear and disorganized. Here&#8217;s a basic primer on how to get started.</p>
+
+<h3>Access the dataset via SODA (Socrata Open Data API)</h3>
+
+<p>Most of the datasets have a SODA API endpoint set up that you can hit to get data back. To find the endpoint, open up the dataset, click on the &#8220;Export&#8221; tab at the top to show the &#8220;API&#8221; tab.</p>
+
+<p><img src="/images/endpoint.jpg"></p>
+
+<p>The endpoint url will look something like this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>http://data.cityofnewyork.us/api/views/erm2-nwe9/rows.json</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Each dataset has a unique identifier which will be important later on, in this instance it&#8217;s <code>erm2-nwe9</code>.</p>
+
+<p>You can use your browser to hit this url and see what kind of data you get back, however depending on how large the dataset is this could take a very long time, even for a patient person. The json that&#8217;s returned in this case is unfortunately not very easy to work with, there&#8217;s hashes of data describing the table/columns in the beginning and then all the actual data in an array at the end of the response.
+<img src="/images/json_data.jpg"></p>
+
+<p>I really don&#8217;t care about anything other the actual data, so how do I get that back?</p>
+
+<h3>Access the dataset through the right endpoint</h3>
+
+<p>It turns out that SODA typically exposes two different endpoints, one under &#8220;/api/views&#8221; and another under &#8220;/resources&#8221;. The first endpoint is used as a RESTful interface while the other is primarily used to retrieve data. So for the example above these are the two endpoints, and the one we are interested in is the second. If you have the unique id of your dataset, you should be able to substitute it below and begin querying the data you want.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>http://data.cityofnewyork.us/api/views/erm2-nwe9/rows.json
+</span><span class='line'>http://data.cityofnewyork.us/resource/erm2-nwe9.json</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Filter the data</h3>
+
+<p>No matter what you&#8217;re trying to do, you probably want to filter the data in some way. You can read the entirety of the query documentation here: http://dev.socrata.com/docs/queries, but the most important one you&#8217;ll probably be using to start is <code>$limit</code>, which limits the amount of data you get back so the web response will be super fast.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>http://data.cityofnewyork.us/resource/erm2-nwe9.json?$limit=10</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Here is a more advanced query that involves filtering by a datetime field. Note that you have to wrap the datetime value in single quotes for this to work.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>http://data.cityofnewyork.us/resource/erm2-nwe9.json?$limit=10&$where=created_date%3E'2012-11-09'AND created_date &gt; '2012-11-10'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>At this point, you should be able to get up and running pretty quick. If you have more questions feel free to ask.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Stephen Chen</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-14T21:19:00-05:00" pubdate data-updated="true">Nov 14<span>th</span>, 2012</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://yoursite.com/blog/2012/11/14/how-to-query-nyc-open-datasets-with-socrata/" data-via="" data-counturl="http://yoursite.com/blog/2012/11/14/how-to-query-nyc-open-datasets-with-socrata/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/10/25/easy-datetime-comparison-with-activerecord-and-rails/" title="Previous Post: Easy datetime comparison with ActiveRecord and Rails">&laquo; Easy datetime comparison with ActiveRecord and Rails</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/11/14/how-to-query-nyc-open-datasets-with-socrata/">How To Query NYC Open Datasets with Socrata</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/25/easy-datetime-comparison-with-activerecord-and-rails/">Easy datetime comparison with ActiveRecord and Rails</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/16/common-antipatterns-in-ruby-and-rails/">Common Antipatterns in Ruby</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/12/easy-conditionals-in-ruby/">Conditionals and Null References in Ruby</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/10/database-discussion-with-chris-henry-from-behance/">Database Discussion with Chris Henry from Behance</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/stephenchen13">@stephenchen13</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'stephenchen13',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - Stephen Chen -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
