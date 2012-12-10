@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://yoursite.com/blog/2012/10/03/hello-world-slash/">
+  <link rel="canonical" href="http://newcodeflow.com/blog/2012/10/03/hello-world-slash/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -49,7 +49,7 @@
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:yoursite.com" />
+    <input type="hidden" name="q" value="site:newcodeflow.com" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -126,7 +126,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://yoursite.com/blog/2012/10/03/hello-world-slash/" data-via="" data-counturl="http://yoursite.com/blog/2012/10/03/hello-world-slash/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://newcodeflow.com/blog/2012/10/03/hello-world-slash/" data-via="twenty2twoss" data-counturl="http://newcodeflow.com/blog/2012/10/03/hello-world-slash/" >Tweet</a>
   
   
   
@@ -193,7 +193,7 @@
 
         github.showRepos({
             user: 'stephenchen13',
-            count: 0,
+            count: ,
             skip_forks: true,
             target: '#gh_repos'
         });
@@ -202,6 +202,22 @@
   <script src="/javascripts/github.js" type="text/javascript"> </script>
 </section>
 
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("twenty2twoss", 0, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/twenty2twoss" class="twitter-follow-button" data-show-count="false">Follow @twenty2twoss</a>
+  
+</section>
 
 
 

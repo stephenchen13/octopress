@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[New Code Flow]]></title>
-  <link href="http://yoursite.com/atom.xml" rel="self"/>
-  <link href="http://yoursite.com/"/>
-  <updated>2012-12-10T15:13:27-05:00</updated>
-  <id>http://yoursite.com/</id>
+  <link href="http://newcodeflow.com/atom.xml" rel="self"/>
+  <link href="http://newcodeflow.com/"/>
+  <updated>2012-12-10T15:39:54-05:00</updated>
+  <id>http://newcodeflow.com/</id>
   <author>
     <name><![CDATA[Stephen Chen]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[The difference between rake db:create and rake db:create:all]]></title>
-    <link href="http://yoursite.com/blog/2012/12/10/the-difference-between-rake-db-create-and-rake-db-create-all/"/>
+    <link href="http://newcodeflow.com/blog/2012/12/10/the-difference-between-rake-db-create-and-rake-db-create-all/"/>
     <updated>2012-12-10T14:40:00-05:00</updated>
-    <id>http://yoursite.com/blog/2012/12/10/the-difference-between-rake-db-create-and-rake-db-create-all</id>
+    <id>http://newcodeflow.com/blog/2012/12/10/the-difference-between-rake-db-create-and-rake-db-create-all</id>
     <content type="html"><![CDATA[<p><code>rake db:create</code></p>
 
 <p>This command creates the database corresponding to your current environment.</p>
@@ -30,9 +30,9 @@
   
   <entry>
     <title type="html"><![CDATA[gboom: gists from the command line]]></title>
-    <link href="http://yoursite.com/blog/2012/11/20/gboom-gists-from-the-command-line/"/>
+    <link href="http://newcodeflow.com/blog/2012/11/20/gboom-gists-from-the-command-line/"/>
     <updated>2012-11-20T17:30:00-05:00</updated>
-    <id>http://yoursite.com/blog/2012/11/20/gboom-gists-from-the-command-line</id>
+    <id>http://newcodeflow.com/blog/2012/11/20/gboom-gists-from-the-command-line</id>
     <content type="html"><![CDATA[<p>Created my first gem today! And I&#8217;m wayyyy too proud of myself right now.</p>
 
 <p>GBOOM is a gem that let&#8217;s you create gists from your command line. The most useful (read: only) feature that I implemented is that you can pass in specific lines from a file that you want to create a gist from.</p>
@@ -45,16 +45,16 @@
   
   <entry>
     <title type="html"><![CDATA[How To Query NYC Open Datasets with Socrata]]></title>
-    <link href="http://yoursite.com/blog/2012/11/14/how-to-query-nyc-open-datasets-with-socrata/"/>
+    <link href="http://newcodeflow.com/blog/2012/11/14/how-to-query-nyc-open-datasets-with-socrata/"/>
     <updated>2012-11-14T21:19:00-05:00</updated>
-    <id>http://yoursite.com/blog/2012/11/14/how-to-query-nyc-open-datasets-with-socrata</id>
+    <id>http://newcodeflow.com/blog/2012/11/14/how-to-query-nyc-open-datasets-with-socrata</id>
     <content type="html"><![CDATA[<p>NYC provides a ton of data from a variety of sources to the public to use for research and for application development. There&#8217;s information ranging from Wifi Hotspot Locations to 311 Service requests. You can check out all the datasets here: <a href="https://nycopendata.socrata.com/">https://nycopendata.socrata.com/</a>. As a developer, working with these datasets can be tricky, as the documentation can be unclear and disorganized. Here&#8217;s a basic primer on how to get started.</p>
 
 <h3>Access the dataset via SODA (Socrata Open Data API)</h3>
 
 <p>Most of the datasets have a SODA API endpoint set up that you can hit to get data back. To find the endpoint, open up the dataset, click on the &#8220;Export&#8221; tab at the top to show the &#8220;API&#8221; tab.</p>
 
-<p><img src="http://yoursite.com/images/endpoint.jpg"></p>
+<p><img src="http://newcodeflow.com/images/endpoint.jpg"></p>
 
 <p>The endpoint url will look something like this:</p>
 
@@ -65,7 +65,7 @@
 <p>Each dataset has a unique identifier which will be important later on, in this instance it&#8217;s <code>erm2-nwe9</code>.</p>
 
 <p>You can use your browser to hit this url and see what kind of data you get back, however depending on how large the dataset is this could take a very long time, even for a patient person. The json that&#8217;s returned in this case is unfortunately not very easy to work with, there&#8217;s hashes of data describing the table/columns in the beginning and then all the actual data in an array at the end of the response.
-<img src="http://yoursite.com/images/json_data.jpg"></p>
+<img src="http://newcodeflow.com/images/json_data.jpg"></p>
 
 <p>I really don&#8217;t care about anything other the actual data, so how do I get that back?</p>
 
@@ -99,9 +99,9 @@
   
   <entry>
     <title type="html"><![CDATA[Easy datetime comparison with ActiveRecord and Rails]]></title>
-    <link href="http://yoursite.com/blog/2012/10/25/easy-datetime-comparison-with-activerecord-and-rails/"/>
+    <link href="http://newcodeflow.com/blog/2012/10/25/easy-datetime-comparison-with-activerecord-and-rails/"/>
     <updated>2012-10-25T21:26:00-04:00</updated>
-    <id>http://yoursite.com/blog/2012/10/25/easy-datetime-comparison-with-activerecord-and-rails</id>
+    <id>http://newcodeflow.com/blog/2012/10/25/easy-datetime-comparison-with-activerecord-and-rails</id>
     <content type="html"><![CDATA[<p>TL;DR:
 Instead of creating or hardcoding your own DateTime and Date objects, use built in ActiveSupport methods in your ActiveRecord queries.</p>
 
@@ -167,9 +167,9 @@ link to Akiva -->
   
   <entry>
     <title type="html"><![CDATA[Common Antipatterns in Ruby]]></title>
-    <link href="http://yoursite.com/blog/2012/10/16/common-antipatterns-in-ruby-and-rails/"/>
+    <link href="http://newcodeflow.com/blog/2012/10/16/common-antipatterns-in-ruby-and-rails/"/>
     <updated>2012-10-16T17:12:00-04:00</updated>
-    <id>http://yoursite.com/blog/2012/10/16/common-antipatterns-in-ruby-and-rails</id>
+    <id>http://newcodeflow.com/blog/2012/10/16/common-antipatterns-in-ruby-and-rails</id>
     <content type="html"><![CDATA[<h2>What is an antipattern?</h2>
 
 <p>An antipattern is generally a common solution to a problem that is ineffective, or has negative consequences. It can result from not knowing how to solve a particular problem, not caring how it&#8217;s solved, or using a correct pattern in a wrong context. Tom Crinson has a great presentation on antipatterns on speakerdeck that can be found <a href="https://speakerdeck.com/u/mrjaba/p/ruby-rails-antipatterns">here</a>. Here are a few examples of antipatterns that I found interesting:</p>
@@ -242,9 +242,9 @@ link to Akiva -->
   
   <entry>
     <title type="html"><![CDATA[Database Discussion with Chris Henry from Behance]]></title>
-    <link href="http://yoursite.com/blog/2012/10/10/database-discussion-with-chris-henry-from-behance/"/>
+    <link href="http://newcodeflow.com/blog/2012/10/10/database-discussion-with-chris-henry-from-behance/"/>
     <updated>2012-10-10T22:06:00-04:00</updated>
-    <id>http://yoursite.com/blog/2012/10/10/database-discussion-with-chris-henry-from-behance</id>
+    <id>http://newcodeflow.com/blog/2012/10/10/database-discussion-with-chris-henry-from-behance</id>
     <content type="html"><![CDATA[<p>Chris Henry, the CTO of <a href="http://behance.net">Behance</a> came in to the Flatiron School today to give us a primer on databases and MySQL. He showed us a few cool things that I didn&#8217;t know about before, and also gave us some insight on how a real-world application with many users is architected and scaled. There was lots of advanced shit but here are some things I took away:</p>
 
 <h2>Slow Log</h2>
@@ -263,9 +263,9 @@ link to Akiva -->
   
   <entry>
     <title type="html"><![CDATA[String concatenation the right way; the fast and furious way]]></title>
-    <link href="http://yoursite.com/blog/2012/10/09/string-concatenation-the-right-way-the-fastest-way/"/>
+    <link href="http://newcodeflow.com/blog/2012/10/09/string-concatenation-the-right-way-the-fastest-way/"/>
     <updated>2012-10-09T23:15:00-04:00</updated>
-    <id>http://yoursite.com/blog/2012/10/09/string-concatenation-the-right-way-the-fastest-way</id>
+    <id>http://newcodeflow.com/blog/2012/10/09/string-concatenation-the-right-way-the-fastest-way</id>
     <content type="html"><![CDATA[<p>One of the greatest parts of programming is learning something that blows your mind, a moment where <a href="http://youtu.be/ZKh68YfQYkE?t=5s">this</a> happens. It&#8217;s one of those moments that you realize you are a programming n00b, and that there is always a better way to do things. I had one of these moments recently when I was going through the <a href="http://rubykoans.com">Ruby Koans</a>. In one of the introductory tests that cover strings you are told to think about string concatenation, and in particular which method is faster when building strings: &#8220;+&#8221; or &#8221;<<". 
 </p>
 <p>The great part about leading questions like that is that you pretty much already know what the answer is going to be. So I went ahead and proved it, just so I could write this blog post. Awesome. There&#8217;s a really handy Benchmark class in Ruby that lets you time to execution of blocks of code, so I used that to scientifically prove what we all now know is true: &#8221;<<" is faster than "+".<p>
@@ -335,9 +335,9 @@ Here are the results:
   
   <entry>
     <title type="html"><![CDATA[Hello World!]]></title>
-    <link href="http://yoursite.com/blog/2012/10/03/hello-world-slash/"/>
+    <link href="http://newcodeflow.com/blog/2012/10/03/hello-world-slash/"/>
     <updated>2012-10-03T15:16:00-04:00</updated>
-    <id>http://yoursite.com/blog/2012/10/03/hello-world-slash</id>
+    <id>http://newcodeflow.com/blog/2012/10/03/hello-world-slash</id>
     <content type="html"><![CDATA[<p>Deploying Octopress for the first time turned out to be fairly easy. I took a slightly different approach than the standard installation documentation, I wanted to store the codebase in my Github repository as well as deploy to Heroku. To do this some slight customization is needed:</p>
 
 <ol><li>Edit .git/config and rename the current &#8216;origin&#8217; remote to something else (upstream).</li><li>Add a remote for your github repository <code>git remote add origin git@github.com:stephenchen13/octopress.git</code></li><li>Add a remote for your heroku repository <code>git remote add heroku git@heroku.com:frozen-citadel-3574.git</code></li><li>Regenerate everything necessary, and now you can push to both Github and Heroku</li></ol>

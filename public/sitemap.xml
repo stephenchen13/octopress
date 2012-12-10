@@ -1,53 +1,53 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>http://yoursite.com/blog/2012/10/03/hello-world-slash/</loc>
+        <loc>http://newcodeflow.com/blog/2012/10/03/hello-world-slash/</loc>
         <lastmod>2012-10-03T15:50:09-04:00</lastmod>
     </url>
     <url>
         <loc>
-            http://yoursite.com/blog/2012/10/09/string-concatenation-the-right-way-the-fastest-way/
+            http://newcodeflow.com/blog/2012/10/09/string-concatenation-the-right-way-the-fastest-way/
         </loc>
         <lastmod>2012-10-12T15:59:10-04:00</lastmod>
     </url>
     <url>
         <loc>
-            http://yoursite.com/blog/2012/10/10/database-discussion-with-chris-henry-from-behance/
+            http://newcodeflow.com/blog/2012/10/10/database-discussion-with-chris-henry-from-behance/
         </loc>
         <lastmod>2012-10-10T22:37:43-04:00</lastmod>
     </url>
     <url>
-        <loc>http://yoursite.com/blog/2012/10/16/common-antipatterns-in-ruby-and-rails/</loc>
+        <loc>http://newcodeflow.com/blog/2012/10/16/common-antipatterns-in-ruby-and-rails/</loc>
         <lastmod>2012-10-17T11:12:17-04:00</lastmod>
     </url>
     <url>
         <loc>
-            http://yoursite.com/blog/2012/10/25/easy-datetime-comparison-with-activerecord-and-rails/
+            http://newcodeflow.com/blog/2012/10/25/easy-datetime-comparison-with-activerecord-and-rails/
         </loc>
         <lastmod>2012-10-26T10:12:14-04:00</lastmod>
     </url>
     <url>
         <loc>
-            http://yoursite.com/blog/2012/11/14/how-to-query-nyc-open-datasets-with-socrata/
+            http://newcodeflow.com/blog/2012/11/14/how-to-query-nyc-open-datasets-with-socrata/
         </loc>
         <lastmod>2012-11-14T23:34:58-05:00</lastmod>
     </url>
     <url>
-        <loc>http://yoursite.com/blog/2012/11/20/gboom-gists-from-the-command-line/</loc>
+        <loc>http://newcodeflow.com/blog/2012/11/20/gboom-gists-from-the-command-line/</loc>
         <lastmod>2012-11-20T17:45:18-05:00</lastmod>
     </url>
     <url>
         <loc>
-            http://yoursite.com/blog/2012/12/10/the-difference-between-rake-db-create-and-rake-db-create-all/
+            http://newcodeflow.com/blog/2012/12/10/the-difference-between-rake-db-create-and-rake-db-create-all/
         </loc>
         <lastmod>2012-12-10T14:48:56-05:00</lastmod>
     </url>
     <url>
-        <loc>http://yoursite.com/blog/archives/</loc>
+        <loc>http://newcodeflow.com/blog/archives/</loc>
         <lastmod>2012-12-10T15:08:28-05:00</lastmod>
     </url>
     <url>
-        <loc>http://yoursite.com/</loc>
+        <loc>http://newcodeflow.com/</loc>
         <lastmod>2012-12-10T14:48:56-05:00</lastmod>
     </url>
 </urlset>
