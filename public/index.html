@@ -9,7 +9,7 @@
   <meta name="author" content="Stephen Chen">
 
   
-  <meta name="description" content="Created my first gem today! And I&#8217;m wayyyy too proud of myself right now. GBOOM is a gem that let&#8217;s you create gists from your command &hellip;">
+  <meta name="description" content="rake db:create This command creates the database corresponding to your current environment. rake db:create:all This command creates all databases &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -70,7 +70,49 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/11/20/gboom-gists-from-the-command-line/">Gboom: Gists From the Command Line</a></h1>
+      <h1 class="entry-title"><a href="/blog/2012/12/10/the-difference-between-rake-db-create-and-rake-db-create-all/">The difference between rake db:create and rake db:create:all</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-10T14:40:00-05:00" pubdate data-updated="true">Dec 10<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><code>rake db:create</code></p>
+
+<p>This command creates the database corresponding to your current environment.</p>
+
+<p><code>rake db:create:all</code></p>
+
+<p>This command creates all databases defined in <code>config/database.yml</code>. So when you run this command in development for the first time, it will create  production and test databases as well.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/11/20/gboom-gists-from-the-command-line/">gboom: gists from the command line</a></h1>
     
     
       <p class="meta">
@@ -112,7 +154,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/11/14/how-to-query-nyc-open-datasets-with-socrata/">How to Query NYC Open Datasets With Socrata</a></h1>
+      <h1 class="entry-title"><a href="/blog/2012/11/14/how-to-query-nyc-open-datasets-with-socrata/">How To Query NYC Open Datasets with Socrata</a></h1>
     
     
       <p class="meta">
@@ -193,7 +235,7 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/10/25/easy-datetime-comparison-with-activerecord-and-rails/">Easy Datetime Comparison With ActiveRecord and Rails</a></h1>
+      <h1 class="entry-title"><a href="/blog/2012/10/25/easy-datetime-comparison-with-activerecord-and-rails/">Easy datetime comparison with ActiveRecord and Rails</a></h1>
     
     
       <p class="meta">
@@ -390,84 +432,7 @@ link to Akiva -->
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/10/12/easy-conditionals-in-ruby/">Conditionals and Null References in Ruby</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-12T13:44:00-04:00" pubdate data-updated="true">Oct 12<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>One of the most common errors that haunt all programmers in almost all languages is the Null Reference Exception. Objects get initialized all the time from all kinds of different sources, and a lot of times those objects come back &#8220;null&#8221; or &#8220;nil&#8221; in Ruby. Because of this, programmers spend a lot of time protecting their code from breaking. It&#8217;s a common pattern to check if your object is &#8220;null&#8221; or &#8220;nil&#8221; before calling one of it&#8217;s methods. There&#8217;s a couple ways this can be done in Ruby that read a lot nicer than other languages, and take less plumbing code to accomplish.</p>
-
-<h2>the classic &#8220;if&#8221; statement</h2>
-
-<figure class='code'><figcaption><span>ruby version</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">obj</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">obj</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<figure class='code'><figcaption><span>c# version</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">obj</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span> <span class="n">obj</span><span class="p">.</span><span class="n">name</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>the ternary operator</h2>
-
-<figure class='code'><figcaption><span>ruby version</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">a</span> <span class="o">=</span> <span class="n">obj</span> <span class="p">?</span> <span class="n">obj</span><span class="o">.</span><span class="n">name</span> <span class="p">:</span> <span class="s2">&quot;&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<figure class='code'><figcaption><span>c# version</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="kt">string</span> <span class="n">a</span> <span class="p">=</span> <span class="n">obj</span> <span class="p">!=</span> <span class="k">null</span> <span class="p">?</span> <span class="n">obj</span><span class="p">.</span><span class="n">name</span> <span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The ternary operator allows you to specify a default statement to execute in case your conditional evaluates to false. In Ruby, this line of code is 7+ characters shorter, which is why lazy programmers love Ruby.</p>
-
-<h2>unless</h2>
-
-<p>&#8220;unless&#8221; almost exactly like an &#8220;if&#8221; statement, but is often used instead of &#8220;if !&#8221; because it is more readable</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">a</span> <span class="o">=</span> <span class="n">obj</span> <span class="k">unless</span> <span class="n">my_array</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-</span><span class='line'><span class="n">a</span> <span class="o">=</span> <span class="n">obj</span> <span class="k">if</span> <span class="o">!</span><span class="n">my_array</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>tl;dr</h2>
-
-<p>Get real familiar with the &#8220;if&#8221;, ternary, and &#8220;unless&#8221; operators and protect yourself from null references. What other ways do you use to protect your code?</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/10/database-discussion-with-chris-henry-from-behance/">Database Discussion With Chris Henry From Behance</a></h1>
+      <h1 class="entry-title"><a href="/blog/2012/10/10/database-discussion-with-chris-henry-from-behance/">Database Discussion with Chris Henry from Behance</a></h1>
     
     
       <p class="meta">
@@ -515,7 +480,7 @@ link to Akiva -->
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/10/09/string-concatenation-the-right-way-the-fastest-way/">String Concatenation the Right Way; the Fast and Furious Way</a></h1>
+      <h1 class="entry-title"><a href="/blog/2012/10/09/string-concatenation-the-right-way-the-fastest-way/">String concatenation the right way; the fast and furious way</a></h1>
     
     
       <p class="meta">
@@ -663,6 +628,10 @@ Here are the results:
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/12/10/the-difference-between-rake-db-create-and-rake-db-create-all/">The difference between rake db:create and rake db:create:all</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/11/20/gboom-gists-from-the-command-line/">gboom: gists from the command line</a>
       </li>
     
@@ -676,10 +645,6 @@ Here are the results:
     
       <li class="post">
         <a href="/blog/2012/10/16/common-antipatterns-in-ruby-and-rails/">Common Antipatterns in Ruby</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/10/12/easy-conditionals-in-ruby/">Conditionals and Null References in Ruby</a>
       </li>
     
   </ul>

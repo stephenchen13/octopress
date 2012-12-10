@@ -5,13 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Blog Archive - New Code Flow</title>
+  <title>The difference between rake db:create and rake db:create:all - New Code Flow</title>
   <meta name="author" content="Stephen Chen">
 
   
-  <meta name="description" content="Blog Archive 2012 The difference between rake db:create and rake db:create:all
-Dec 10 2012 gboom: gists from the command line
-Nov 20 2012 How To &hellip;">
+  <meta name="description" content="rake db:create This command creates the database corresponding to your current environment. rake db:create:all This command creates all databases &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +18,7 @@ Nov 20 2012 How To &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://yoursite.com/blog/archives/">
+  <link rel="canonical" href="http://yoursite.com/blog/2012/12/10/the-difference-between-rake-db-create-and-rake-db-create-all/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -65,101 +63,84 @@ Nov 20 2012 How To &hellip;">
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Blog Archive</h1>
+    
+      <h1 class="entry-title">The difference between rake db:create and rake db:create:all</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-10T14:40:00-05:00" pubdate data-updated="true">Dec 10<span>th</span>, 2012</time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives">
 
 
+<div class="entry-content"><p><code>rake db:create</code></p>
 
-  
-  <h2>2012</h2>
+<p>This command creates the database corresponding to your current environment.</p>
 
-<article>
-  
-<h1><a href="/blog/2012/12/10/the-difference-between-rake-db-create-and-rake-db-create-all/">The difference between rake db:create and rake db:create:all</a></h1>
-<time datetime="2012-12-10T14:40:00-05:00" pubdate><span class='month'>Dec</span> <span class='day'>10</span> <span class='year'>2012</span></time>
+<p><code>rake db:create:all</code></p>
 
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2012/11/20/gboom-gists-from-the-command-line/">gboom: gists from the command line</a></h1>
-<time datetime="2012-11-20T17:30:00-05:00" pubdate><span class='month'>Nov</span> <span class='day'>20</span> <span class='year'>2012</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2012/11/14/how-to-query-nyc-open-datasets-with-socrata/">How To Query NYC Open Datasets with Socrata</a></h1>
-<time datetime="2012-11-14T21:19:00-05:00" pubdate><span class='month'>Nov</span> <span class='day'>14</span> <span class='year'>2012</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2012/10/25/easy-datetime-comparison-with-activerecord-and-rails/">Easy datetime comparison with ActiveRecord and Rails</a></h1>
-<time datetime="2012-10-25T21:26:00-04:00" pubdate><span class='month'>Oct</span> <span class='day'>25</span> <span class='year'>2012</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2012/10/16/common-antipatterns-in-ruby-and-rails/">Common Antipatterns in Ruby</a></h1>
-<time datetime="2012-10-16T17:12:00-04:00" pubdate><span class='month'>Oct</span> <span class='day'>16</span> <span class='year'>2012</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2012/10/10/database-discussion-with-chris-henry-from-behance/">Database Discussion with Chris Henry from Behance</a></h1>
-<time datetime="2012-10-10T22:06:00-04:00" pubdate><span class='month'>Oct</span> <span class='day'>10</span> <span class='year'>2012</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2012/10/09/string-concatenation-the-right-way-the-fastest-way/">String concatenation the right way; the fast and furious way</a></h1>
-<time datetime="2012-10-09T23:15:00-04:00" pubdate><span class='month'>Oct</span> <span class='day'>09</span> <span class='year'>2012</span></time>
-
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2012/10/03/hello-world-slash/">Hello World!</a></h1>
-<time datetime="2012-10-03T15:16:00-04:00" pubdate><span class='month'>Oct</span> <span class='day'>03</span> <span class='year'>2012</span></time>
-
-
-</article>
-
+<p>This command creates all databases defined in <code>config/database.yml</code>. So when you run this command in development for the first time, it will create  production and test databases as well.</p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Stephen Chen</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-10T14:40:00-05:00" pubdate data-updated="true">Dec 10<span>th</span>, 2012</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://yoursite.com/blog/2012/12/10/the-difference-between-rake-db-create-and-rake-db-create-all/" data-via="" data-counturl="http://yoursite.com/blog/2012/12/10/the-difference-between-rake-db-create-and-rake-db-create-all/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/11/20/gboom-gists-from-the-command-line/" title="Previous Post: gboom: gists from the command line">&laquo; gboom: gists from the command line</a>
+      
+      
+    </p>
+  </footer>
 </article>
 
 </div>
