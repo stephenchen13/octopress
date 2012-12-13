@@ -9,7 +9,7 @@
   <meta name="author" content="Stephen Chen">
 
   
-  <meta name="description" content="I highly recommend reading this ebook published by Aaron Sumner: Everyday Rails Testing With Rspec if you&#8217;re trying to break into the world of &hellip;">
+  <meta name="description" content="Debugging rspec can be a b*tch sometimes! I spent way too long stuck on this one error today, and only realized what was happening after stepping &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -31,6 +31,18 @@
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-37016207-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
 
 </head>
 
@@ -64,6 +76,95 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/12/12/debugging-render-template-errors-in-rspec/">Debugging &#8216;render_template&#8217; errors in Rspec</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-12T19:19:00-05:00" pubdate data-updated="true">Dec 12<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Debugging rspec can be a b*tch sometimes! I spent way too long stuck on this one error today, and only realized what was happening after stepping away and clearing my head. Here is a simple controller spec that verifies that the <code>new</code> action is working as expected:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">describe</span> <span class="no">AssignmentsController</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">describe</span> <span class="s1">&#39;GET #new&#39;</span> <span class="k">do</span>
+</span><span class='line'>    <span class="n">it</span> <span class="s2">&quot;assigns a new Assignment to @assignment&quot;</span> <span class="k">do</span>
+</span><span class='line'>      <span class="n">get</span> <span class="ss">:new</span>
+</span><span class='line'>      <span class="n">assigns</span><span class="p">(</span><span class="ss">:assignment</span><span class="p">)</span><span class="o">.</span><span class="n">should</span> <span class="n">be_a_new</span><span class="p">(</span><span class="no">Assignment</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">it</span> <span class="s2">&quot;renders the :new template&quot;</span> <span class="k">do</span>
+</span><span class='line'>      <span class="n">get</span> <span class="ss">:new</span><span class="p">,</span> <span class="ss">:format</span> <span class="o">=&gt;</span> <span class="s2">&quot;html&quot;</span>
+</span><span class='line'>      <span class="n">response</span><span class="o">.</span><span class="n">should</span> <span class="n">render_template</span> <span class="ss">:new</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>However this would fail awfully over and over and over. Check out how unhelpful the error message is below:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Failure</span><span class="o">/</span><span class="no">Error</span><span class="p">:</span> <span class="n">response</span><span class="o">.</span><span class="n">should</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;new&quot;</span><span class="p">)</span>
+</span><span class='line'>     <span class="n">expecting</span> <span class="o">&lt;</span><span class="s2">&quot;new&quot;</span><span class="o">&gt;</span> <span class="n">but</span> <span class="n">rendering</span> <span class="n">with</span> <span class="o">&lt;</span><span class="s2">&quot;&quot;</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So what does this really mean? It means that the response is being directed elsewhere, either before or doing the <code>new</code> action. For myself, this was occurring because this portion of the application requires user authentication. So the test request was being redirected to login instead. To fix this, you need to fake authentication in your tests. I added a before condition to these tests and they passed with flying colors.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">before</span> <span class="ss">:each</span> <span class="k">do</span>
+</span><span class='line'>  <span class="vi">@user</span> <span class="o">=</span> <span class="no">FactoryGirl</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">session</span><span class="o">[</span><span class="ss">:user_id</span><span class="o">]</span> <span class="o">=</span> <span class="vi">@user</span><span class="o">.</span><span class="n">id</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Ahh rspec, why do you make me hate you? And why do I keep coming back? =/</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -468,6 +569,83 @@ link to Akiva -->
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2012/10/12/easy-conditionals-in-ruby/">Conditionals and Null References in Ruby</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-12T13:44:00-04:00" pubdate data-updated="true">Oct 12<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>One of the most common errors that haunt all programmers in almost all languages is the Null Reference Exception. Objects get initialized all the time from all kinds of different sources, and a lot of times those objects come back &#8220;null&#8221; or &#8220;nil&#8221; in Ruby. Because of this, programmers spend a lot of time protecting their code from breaking. It&#8217;s a common pattern to check if your object is &#8220;null&#8221; or &#8220;nil&#8221; before calling one of it&#8217;s methods. There&#8217;s a couple ways this can be done in Ruby that read a lot nicer than other languages, and take less plumbing code to accomplish.</p>
+
+<h2>the classic &#8220;if&#8221; statement</h2>
+
+<figure class='code'><figcaption><span>ruby version</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">obj</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">obj</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><figcaption><span>c# version</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">obj</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span> <span class="n">obj</span><span class="p">.</span><span class="n">name</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>the ternary operator</h2>
+
+<figure class='code'><figcaption><span>ruby version</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">a</span> <span class="o">=</span> <span class="n">obj</span> <span class="p">?</span> <span class="n">obj</span><span class="o">.</span><span class="n">name</span> <span class="p">:</span> <span class="s2">&quot;&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><figcaption><span>c# version</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c#'><span class='line'><span class="kt">string</span> <span class="n">a</span> <span class="p">=</span> <span class="n">obj</span> <span class="p">!=</span> <span class="k">null</span> <span class="p">?</span> <span class="n">obj</span><span class="p">.</span><span class="n">name</span> <span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The ternary operator allows you to specify a default statement to execute in case your conditional evaluates to false. In Ruby, this line of code is 7+ characters shorter, which is why lazy programmers love Ruby.</p>
+
+<h2>unless</h2>
+
+<p>&#8220;unless&#8221; almost exactly like an &#8220;if&#8221; statement, but is often used instead of &#8220;if !&#8221; because it is more readable</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">a</span> <span class="o">=</span> <span class="n">obj</span> <span class="k">unless</span> <span class="n">my_array</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+</span><span class='line'><span class="n">a</span> <span class="o">=</span> <span class="n">obj</span> <span class="k">if</span> <span class="o">!</span><span class="n">my_array</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>tl;dr</h2>
+
+<p>Get real familiar with the &#8220;if&#8221;, ternary, and &#8220;unless&#8221; operators and protect yourself from null references. What other ways do you use to protect your code?</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2012/10/10/database-discussion-with-chris-henry-from-behance/">Database Discussion with Chris Henry from Behance</a></h1>
     
     
@@ -610,48 +788,9 @@ Here are the results:
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/03/hello-world-slash/">Hello World!</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-03T15:16:00-04:00" pubdate data-updated="true">Oct 3<span>rd</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Deploying Octopress for the first time turned out to be fairly easy. I took a slightly different approach than the standard installation documentation, I wanted to store the codebase in my Github repository as well as deploy to Heroku. To do this some slight customization is needed:</p>
-
-<ol><li>Edit .git/config and rename the current &#8216;origin&#8217; remote to something else (upstream).</li><li>Add a remote for your github repository <code>git remote add origin git@github.com:stephenchen13/octopress.git</code></li><li>Add a remote for your heroku repository <code>git remote add heroku git@heroku.com:frozen-citadel-3574.git</code></li><li>Regenerate everything necessary, and now you can push to both Github and Heroku</li></ol>
-
-
-<p>Blog away!</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/2/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
